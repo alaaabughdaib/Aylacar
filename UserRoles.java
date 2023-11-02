@@ -1,5 +1,6 @@
 package aylacar.acceptance_tests;
 
+import aylacar.adminf;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,18 +9,23 @@ public class UserRoles {
 
 @Given("an admin is logged into their account")
 public void anAdminIsLoggedIntoTheirAccount() {
+	adminf a = new adminf();
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
 }
 
 @When("the admin clicks on the Add New Product button")
 public void theAdminClicksOnTheAddNewProductButton() {
+	addAdminf a = new addAdminf ();
+	a.setvisibile (true);
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
 }
 
+
 @When("adds a new product with details")
 public void addsANewProductWithDetails() {
+	
     // Write code here that turns the phrase above into concrete actions
     throw new io.cucumber.java.PendingException();
 }
