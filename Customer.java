@@ -1,7 +1,7 @@
 package aylacar;
 
 public class Customer {
-    private int customerId;
+    private String customerId;
     private String name;
     private String email;
     private String phoneNumber;
@@ -31,12 +31,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public int getCustomerId() {
+	public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setCustomerId(String customeId) {
+        this.customerId = customeId;
     }
 
     public String getName() {
@@ -67,4 +67,10 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+
+	public void update(String name2, String email2) {
+		email=email2;
+		name=name2;
+		
+	}
 }

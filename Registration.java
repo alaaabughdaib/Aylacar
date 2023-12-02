@@ -1,155 +1,120 @@
 package aylacar.acceptance_tests;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
-import org.hamcrest.CustomMatcher;
 
 import aylacar.Customer;
 import aylacar.Manage;
-import aylacar.adminf;
-import aylacar.loginf;
-import aylacar.signupf;
+import aylacar.signup_frame;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class Registration {
-	String name ;
-	String pass;
-	Manage m = new Manage();
-	@Given("the user is on the registration page")
+Customer c = new Customer();
+String name =null;
+String customeId =null;
+String email =null;
+String password =null;
+String address =null;
+String phoneNumber =null;
+signup_frame s;
+JButton button;
+Manage m=new Manage();
+
+@Given("the customer is on the registration page")
+
+public void theCustomerIsOnTheRegistrationPage() {
+     s= new signup_frame();
+   
+}
+
+
+
+
+@When("the customer provides valid registration details")
+
+public void theCustomerProvidesValidRegistrationDetails(io.cucumber.datatable.DataTable dataTable) {
+   name ="alaa";
+   customeId = "123456";
+   email = "alaa@aylacar";
+   password ="1234";
+   address ="nablus";
+   phoneNumber = "0591234";
+}
+
+
+
+@When("submits the registration form")
+
+public void submitsTheRegistrationForm() {
+button=s.getSignupButton();
+ActionListener[] listeners = button.getActionListeners();
+for (ActionListener listener : listeners) {
+    listener.actionPerformed(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, ""));
+}
 	
-	public void theUserIsOnTheRegistrationPage() {
-	    // Write code here that turns the phrase above into concrete actions
-		signupf m = new signupf();
-		m.setVisible(true);
-	    throw new io.cucumber.java.PendingException();
-	}
+}
 
-	@When("the user enters their name {string} email {string} and password {string}")
-	public void theUserEntersTheirNameEmailAndPassword(String string, String string2, String string3) {
+
+@Then("the customer should be successfully registered")
+
+public void theCustomerShouldBeSuccessfullyRegistered() {
+    c.setName(name);
+    c.setAddress(address);
+    c.setCustomerId(customeId);
+    c.setPassword(password);
+    c.setPhoneNumber(phoneNumber);
+    c.setEmail(email);
+    
+    m.addCustomer(c);
+    
+}
+
+
+
+@When("the customer provides incomplete registration details")
+public void theCustomerProvidesIncompleteRegistrationDetails(io.cucumber.datatable.DataTable dataTable) {
+name="haya";
+password="1234";
+phoneNumber="0591231";
+address="nablus";
+customeId="1111";
+
+
+}
+
+@Then("the registration should fail, and an error message should be displayed")
+public void theRegistrationShouldFailAndAnErrorMessageShouldBeDisplayed() {
 	
-			
-			name=name.getText();
-			pass = pass.getText();
-			
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+   JOptionPane.showMessageDialog(null, "Some Feilds Empty , Signup Failed");
+}
 
-	@When("clicks the {string} button")
-	public void clicksTheButton(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-		
-		if (signupb.clicked) {
-			user.check();
-			
-			
-		}
-		
-	    throw new io.cucumber.java.PendingException();
-	}
 
-	@Then("the user's account is created")
-	public void theUserSAccountIsCreated() {
-		Customer c = new Customer();
-	    m.addCustomer(c);// Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
 
-	@Then("they receive a confirmation email")
-	public void theyReceiveAConfirmationEmail() {
-	   m.sendemail(); // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+@Given("there is an existing customer with the email {string}")
+public void thereIsAnExistingCustomerWithTheEmail(String string) {
+  s=new signup_frame();
+}
+
+@When("the customer provides registration details with the same email")
+public void theCustomerProvidesRegistrationDetailsWithTheSameEmail(io.cucumber.datatable.DataTable dataTable) {
+    name="ayla";
+    password="1234";
+    customeId="2222";
+    address="nablus";
+    phoneNumber="059784";
+    email="ayla@aylacar";
+    
+    
+}
+
+@Then("the registration should fail, and an error message should indicate the email is already in use")
+public void theRegistrationShouldFailAndAnErrorMessageShouldIndicateTheEmailIsAlreadyInUse() {
+	JOptionPane.showMessageDialog(null, "invaid Email  , Signup Failed");
 	
-	
-
-	@Given("there is an existing user with the email {string}")
-	public void thereIsAnExistingUserWithTheEmail(String string) {
-		boolean c;
-		c=m.customerExistsByEmail(string);
-	  //e code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	
-	@When("the user enters their name {string} the existing email {string} and password {string}")
-	public void theUserEntersTheirNameTheExistingEmailAndPassword(String string, String string2, String string3) {
-		boolean c;
-		c=m.customerExistsByEmail(string);
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("an error message is displayed")
-	public void anErrorMessageIsDisplayed() {
-		   JOptionPane.showMessageDialog(null,"unvalid email","Alert",JOptionPane.WARNING_MESSAGE);     
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the user's account is not created")
-	public void theUserSAccountIsNotCreated() {
-		 JOptionPane.showMessageDialog(null,"registration failed","Alert",JOptionPane.WARNING_MESSAGE);     
-	    throw new io.cucumber.java.PendingException();
-	}
-	
-	
-	
-
-	@Given("the user is on the login page")
-	public void theUserIsOnTheLoginPage() {
-	   loginf l=new loginf();
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("the user enters their valid email {string} and vlid password {string}")
-	public void theUserEntersTheirValidEmailAndVlidPassword(String string, String string2) {
-	  m.customerExists(string, string2);
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the user is successfully logged in")
-	public void theUserIsSuccessfullyLoggedIn() {
-		 JOptionPane.showMessageDialog(null, "success");     
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("new page will open")
-	public void newPageWillOpen() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("the user enters an incorrect email {string} and incorrect password {string}")
-	public void theUserEntersAnIncorrectEmailAndIncorrectPassword(String string, String string2) {
-	    m.customerExists(string, string2);
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("the user is not logged in")
-	public void theUserIsNotLoggedIn() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("the user enters their valid email {string} and invalid password {string}")
-	public void theUserEntersTheirValidEmailAndInvalidPassword(String string, String string2) {
-	    m.isCustomerPasswordCorrect(string, string2);
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("the user enters their invalid email {string} and valid password {string}")
-	public void theUserEntersTheirInvalidEmailAndValidPassword(String string, String string2) {
-	    m.customerExistsByEmail(string);
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Given("an admin is logged into their account")
-	public void anAdminIsLoggedIntoTheirAccount() {
-	    adminf m = new adminf();
-	    m.setVisible(true);// Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
+}
 }

@@ -2,6 +2,8 @@ package aylacar;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class Manage {
     private ArrayList<Customer> customers;
     private ArrayList<Product> products;
@@ -87,4 +89,55 @@ public class Manage {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	 public void searchProductByName(String productName) {
+	        boolean productExists = false;
+	        for (Product product : products) {
+	            if (product.getName().equalsIgnoreCase(productName)) {
+	                productExists = true;
+	                break;
+	            }
+	        }
+
+	        // Display a message dialog based on whether the product exists or not
+	        String message;
+	        if (productExists) {
+	            message = "Product '" + productName + "' exists!";
+	        } else {
+	            message = "Product '" + productName + "' does not exist.";
+	        }
+	        JOptionPane.showMessageDialog(null, message, "Product Search Result", JOptionPane.INFORMATION_MESSAGE);
+	    }
+
+	public void FiltersProductsBySelectingASpecificCategory() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void SeeOnlyProductsBelongingToTheSelectedCategory() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateReviewAndRating(String comment, int star) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
